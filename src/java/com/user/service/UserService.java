@@ -8,4 +8,6 @@ public interface UserService {
 	
 	String judgeCanLogin( UserDto userDto);
 	
+	UserDto getUserByUserName( String userName );
+	
 }

@@ -14,6 +14,12 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
+	public UserDto getUserByUserName( String userName ){
+		
+		return this.userDao.getUserByUserName(userName);
+	}
+	
+	@Override
 	public String judgeCanLogin(UserDto userDto){
 		UserDto userDtoInDb = this.userDao.getUserByUserName(userDto.getUserName());
 		if( userDtoInDb==null ){

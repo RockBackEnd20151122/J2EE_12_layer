@@ -10,5 +10,6 @@
 <constant name="struts.multipart.maxSize" value="500000000000"></constant>
 
 <include file="user.xml"></include>
+<include file="file.xml"></include>
 
 </struts>

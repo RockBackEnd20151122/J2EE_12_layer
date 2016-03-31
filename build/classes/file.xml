@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="fileUpload" namespace="/fileUpload" extends="struts-default">
+    	
+        <action name="uploadFileAction" class="com.upload.FileUploadAction" method="uploadFile">
+            <result name="success">/fileUpload/common/success.jsp</result>
+            <result name="error">/fileUpload/common/failure.jsp</result>
+        </action>
+        
+        <action name="downloadFileAction" class="com.upload.FileUploadAction" method="downloadFile">
+            <result name="success" type="stream">
+            	<param name="contentType">application/txt;</param>
+            	<param name="contentDisposition">
+            		attachment;filename="${fileName}"
+            	</param>
+            	<!-- downloadFile below will be changed to getDownloadFile()  -->
+            	<param name="inputName">downloadFile</param>
+            	<param name="bufferSize">2048</param>
+            </result>
+            
+            
+        </action>
+    </package>
+</struts>

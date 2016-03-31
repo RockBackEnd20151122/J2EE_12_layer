@@ -1,8 +1,16 @@
 package com.user.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.user.dto.UserDto;
 import com.user.service.UserService;
 import com.user.service.impl.UserServiceImpl;
+import com.user.util.UserBaseUtil;
 
 public class UserAction {
 	
@@ -23,11 +31,25 @@ public class UserAction {
 		}
 		
 		this.message = this.userService.judgeCanLogin(userDto);
-		if( "can login".equals(this.message)){
+		if( UserBaseUtil.CAN_LOGIN.equals(this.message)){
+			
+			setSession();
 			return "success";
 		}else{
 			return "error";
 		}
+	}
+	
+	private void setSession (){
+		UserDto userDtoIndb = this.userService.getUserByUserName(userDto.getUserName());
+
+		HttpSession session = ServletActionContext.getRequest().getSession(); 
+		session.setAttribute("realName", userDtoIndb.getRealName() );
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		session.setAttribute("loginTime", sdf.format( new Date()) );
+		session.setAttribute("headImage", userDtoIndb.getHeadImage() );
 	}
 	
 	public UserAction(){
